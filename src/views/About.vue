@@ -13,7 +13,6 @@ type AboutMe = {
 const about = ref<AboutMe | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
-
 const activeIndex = ref(0)
 let sliderInterval: any = null
 
@@ -43,12 +42,10 @@ onUnmounted(() => clearInterval(sliderInterval))
 </script>
 
 <template>
-  <section class="max-w-6xl mx-auto py-20 px-6 text-gray-100">
-    <h2 class="section-title">Sobre mí</h2>
+  <section class="hero py-24 px-5 text-center max-w-7xl mx-auto">
+    <h1 class="hero-title">Sobre mí</h1>
 
-    <div v-if="about" class="grid xl:grid-cols-2 gap-14 items-center fade-in">
-      
-      <!-- Imagen circular -->
+    <div v-if="about" class="grid xl:grid-cols-2 gap-14 items-center mt-10">
       <div class="flex justify-center">
         <div class="img-frame">
           <img
@@ -59,15 +56,13 @@ onUnmounted(() => clearInterval(sliderInterval))
         </div>
       </div>
 
-      <!-- Texto + Botones -->
-      <div class="space-y-7">
+      <div class="space-y-7 text-left md:text-left">
         <p
           v-html="about.description"
-          class="text-lg text-gray-300 leading-relaxed text-justify"
+          class="hero-text"
         ></p>
 
         <div class="flex flex-wrap gap-4">
-          
           <a
             v-if="about.cv"
             :href="about.cv"
@@ -97,7 +92,6 @@ onUnmounted(() => clearInterval(sliderInterval))
             WhatsApp
           </a>
         </div>
-
       </div>
     </div>
 
@@ -107,8 +101,12 @@ onUnmounted(() => clearInterval(sliderInterval))
 </template>
 
 <style scoped>
-.section-title {
-  @apply text-4xl md:text-5xl font-extrabold text-green-400 text-center mb-14;
+.hero-title {
+  @apply text-4xl md:text-6xl font-extrabold text-green-500 leading-tight;
+}
+
+.hero-text {
+  @apply text-lg md:text-xl text-gray-300 leading-relaxed;
 }
 
 .img-frame {
@@ -130,7 +128,7 @@ onUnmounted(() => clearInterval(sliderInterval))
 }
 
 .btn-outline {
-  @apply inline-flex items-center gap-2 px-5 py-3 border border-gray-400 rounded-xl text-gray-200 hover:bg-green-600 hover:text-black transition-all hover:scale-105;
+  @apply inline-flex items-center gap-2 px-5 py-3 border border-green-500 rounded-xl text-gray-200 hover:bg-green-500/20 hover:text-black transition-all hover:scale-105;
 }
 
 @media (max-width: 768px) {
@@ -143,5 +141,4 @@ onUnmounted(() => clearInterval(sliderInterval))
 .status {
   @apply text-center py-20 text-gray-400 text-lg;
 }
-
 </style>

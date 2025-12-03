@@ -1,58 +1,89 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
+import { ref, onMounted, onUnmounted } from 'vue'
+import { Icon } from '@iconify/vue'
+
+const iconSize = ref(48)
+
+function updateIconSize() {
+  const width = window.innerWidth
+  if (width >= 1280) iconSize.value = 96
+  else if (width >= 1024) iconSize.value = 80
+  else if (width >= 768) iconSize.value = 64
+  else iconSize.value = 48
+}
+
+onMounted(() => {
+  updateIconSize()
+  window.addEventListener('resize', updateIconSize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateIconSize)
+})
 </script>
 
 <template>
-  <section class="text-center py-20">
-    <h1 class="text-6xl font-extrabold text-green-500 leading-tight">
-      Codenest Solutions ✔
-    </h1>
-
-    <p class="text-2xl text-gray-300 mt-6 font-semibold">
+  <section class="hero">
+    <h1 class="hero-title">Codenest Solutions ✔</h1>
+    <p class="hero-subtitle">
       Full-Stack Developer | Node.js + Vue.js + MySQL + Prisma + NestJS
     </p>
-
-    <p class="text-lg text-gray-400 mt-4 max-w-2xl mx-auto">
-      Construyendo aplicaciones web modernas, rápidas y seguras. 
+    <p class="hero-text">
+      Construyendo aplicaciones web modernas, rápidas y seguras.
       Transformo ideas en experiencias digitales reales y escalables.
     </p>
 
-    <!-- Tecnologías -->
-    <div class="flex justify-center gap-4 mt-10 text-gray-300">
-      <Icon icon="logos:nodejs-icon" width="50" />
-      <Icon icon="vscode-icons:file-type-nestjs" width="50" />
-      <Icon icon="vscode-icons:file-type-prisma" width="50" />
-      <Icon icon="logos:mysql" width="50" />
-      <Icon icon="vscode-icons:file-type-vite" width="50" />
-      <Icon icon="logos:vue" width="50" />
-      <Icon icon="logos:tailwindcss-icon" width="50" />
+    <div class="tech-icons">
+      <Icon icon="logos:nodejs-icon" class="tech-icon" :width="iconSize" :height="iconSize" />
+      <Icon icon="vscode-icons:file-type-nestjs" class="tech-icon" :width="iconSize" :height="iconSize" />
+      <Icon icon="vscode-icons:file-type-prisma" class="tech-icon" :width="iconSize" :height="iconSize" />
+      <Icon icon="logos:mysql" class="tech-icon" :width="iconSize" :height="iconSize" />
+      <Icon icon="vscode-icons:file-type-vite" class="tech-icon" :width="iconSize" :height="iconSize" />
+      <Icon icon="logos:vue" class="tech-icon" :width="iconSize" :height="iconSize" />
+      <Icon icon="logos:tailwindcss-icon" class="tech-icon" :width="iconSize" :height="iconSize" />
     </div>
 
-    <div class="mt-10 flex justify-center gap-6">
-      <a href="#projects"
-        class="px-6 py-3 text-lg bg-green-500 hover:bg-green-600 rounded-lg font-bold">
-        🚀 Ver Proyectos
-      </a>
-
-      <a href="#contact"
-        class="px-6 py-3 text-lg border border-green-500 hover:bg-green-500/20 rounded-lg">
-        📩 Contáctame
-      </a>
+    <div class="btn-group">
+      <a href="#projects" class="btn-main">🚀 Ver Proyectos</a>
+      <a href="#contact" class="btn-outline">📩 Contáctame</a>
     </div>
   </section>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.hero {
+  @apply text-center py-24 px-5 max-w-7xl mx-auto;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.hero-title {
+  @apply text-4xl md:text-6xl font-extrabold text-green-500 leading-tight;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.hero-subtitle {
+  @apply text-lg md:text-2xl text-gray-300 mt-6 font-semibold;
+}
+
+.hero-text {
+  @apply text-sm md:text-lg text-gray-400 mt-4 max-w-2xl mx-auto;
+}
+
+.tech-icons {
+  @apply flex flex-wrap justify-center gap-6 mt-10 text-gray-300;
+}
+
+.tech-icon {
+  @apply transition-transform duration-300 hover:scale-110;
+}
+
+.btn-group {
+  @apply mt-10 flex flex-col sm:flex-row justify-center gap-5;
+}
+
+.btn-main {
+  @apply px-6 py-3 text-lg bg-green-500 hover:bg-green-600 rounded-lg font-bold transition-all hover:scale-105;
+}
+
+.btn-outline {
+  @apply px-6 py-3 text-lg border border-green-500 rounded-lg hover:bg-green-500/20 transition-all hover:scale-105;
 }
 </style>
