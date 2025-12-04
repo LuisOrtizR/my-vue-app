@@ -1,9 +1,7 @@
-/* Usa Tailwind y elimina lo que viene por defecto */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Puedes agregar estilos globales si quieres */
 body {
   background-color: #ffffff;
   color: #213547;

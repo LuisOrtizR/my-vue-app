@@ -1,7 +1,8 @@
-// src/router/index.ts
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
+import Projects from '@/views/Projects.vue'
+import Contact from '@/views/Contact.vue'
 import ForgotPassword from '@/views/ForgotPassword.vue'
 import ResetPassword from '@/views/ResetPassword.vue'
 import Dashboard from '@/views/Dashboard.vue'
@@ -11,6 +12,8 @@ import { useAuthStore } from '@/stores/auth'
 const routes = [
   { path: '/', component: Home },
   { path: '/about', component: About },
+  { path: '/projects', component: Projects },
+  { path: '/contact', component: Contact },
   { path: '/login', component: Login },
   { path: '/forgot-password', component: ForgotPassword },
   { path: '/reset-password', component: ResetPassword },

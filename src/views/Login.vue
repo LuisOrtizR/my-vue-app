@@ -15,6 +15,7 @@ const error = ref("");
 const submit = async () => {
   loading.value = true;
   error.value = "";
+
   try {
     const res = await loginApi(email.value, password.value);
     auth.login(res.data.access_token, res.data.expiresIn);
@@ -22,53 +23,71 @@ const submit = async () => {
   } catch (e: any) {
     error.value = e.response?.data?.message || "Error al iniciar sesión";
   }
+
   loading.value = false;
 };
 </script>
 
 <template>
-  <div class="bg-gray-900 border border-gray-700 p-8 rounded-xl shadow-xl w-full max-w-lg">
-    <h2 class="text-3xl font-bold text-white text-center mb-6">
-      Bienvenido 👋
-    </h2>
+  <section class="py-24 px-5 max-w-3xl mx-auto">
+    <h1 class="text-4xl md:text-6xl font-extrabold text-green-500 text-center mb-10">
+      Iniciar sesión
+    </h1>
 
-    <form @submit.prevent="submit" class="space-y-4">
+    <div
+      v-if="error"
+      class="mb-6 p-4 text-red-700 bg-red-200 border border-red-400 rounded-lg text-center animate-fade"
+    >
+      {{ error }}
+    </div>
+
+    <form @submit.prevent="submit" class="bg-gray-800 p-10 rounded-xl shadow-lg space-y-6">
       <div>
-        <label class="block text-sm font-medium text-gray-300 mb-1">Correo</label>
-        <input v-model="email" type="email"
-               class="input w-full"
-               placeholder="correo@empresa.com" />
+        <label class="text-gray-300 font-semibold">Correo</label>
+        <input
+          v-model="email"
+          type="email"
+          placeholder="correo@ejemplo.com"
+          class="w-full mt-2 px-4 py-3 rounded-lg bg-gray-900 text-gray-100 border border-gray-700
+                 focus:border-green-500 focus:ring-2 focus:ring-green-500 transition"
+        />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-300 mb-1">Contraseña</label>
-        <input v-model="password" type="password"
-               class="input w-full"
-               placeholder="••••••••" />
+        <label class="text-gray-300 font-semibold">Contraseña</label>
+        <input
+          v-model="password"
+          type="password"
+          placeholder="••••••••"
+          class="w-full mt-2 px-4 py-3 rounded-lg bg-gray-900 text-gray-100 border border-gray-700
+                 focus:border-green-500 focus:ring-2 focus:ring-green-500 transition"
+        />
       </div>
 
-      <button :disabled="loading"
-              class="btn w-full py-3 text-lg font-semibold">
+      <button
+        :disabled="loading"
+        class="w-full py-3 rounded-lg bg-green-600 hover:bg-green-500 text-black font-bold text-lg
+               shadow-lg transition transform hover:scale-105 disabled:opacity-50 disabled:scale-100"
+      >
         {{ loading ? "Ingresando..." : "Ingresar" }}
       </button>
-
-      <p v-if="error" class="text-red-400 text-sm text-center">{{ error }}</p>
     </form>
 
     <router-link
       to="/forgot-password"
-      class="block mt-4 text-center text-blue-400 hover:text-blue-300 text-sm"
+      class="block mt-6 text-center text-green-500 hover:text-green-400 transition text-sm"
     >
       ¿Olvidaste tu contraseña?
     </router-link>
-  </div>
+  </section>
 </template>
 
 <style scoped>
-.input {
-  @apply bg-gray-700 px-3 py-2 rounded w-full outline-none;
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-.btn {
-  @apply bg-blue-600 hover:bg-blue-700 py-2 rounded font-semibold duration-200;
+.animate-fade {
+  animation: fade 0.4s ease-in-out;
 }
 </style>

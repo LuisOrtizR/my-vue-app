@@ -7,7 +7,6 @@ const api = axios.create({
   baseURL: `${API_URL}/auth`,
 });
 
-// Interceptor para enviar token
 api.interceptors.request.use((config) => {
   const auth = useAuthStore();
   if (auth.token) {

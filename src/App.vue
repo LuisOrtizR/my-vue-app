@@ -13,17 +13,28 @@
         </router-link>
 
         <div class="flex items-center gap-6">
-          <router-link to="/about" class="text-gray-300 hover:text-green-400 font-semibold">
-            Sobre mí
-          </router-link>
+  <router-link to="/about" class="text-gray-300 hover:text-green-400 font-semibold">
+    Sobre mí
+  </router-link>
 
-          <router-link 
-            to="/login" 
-            class="text-blue-400 hover:text-blue-300 font-semibold"
-          >
-            Iniciar Sesión
-          </router-link>
-        </div>
+  <router-link to="/projects" class="text-gray-300 hover:text-green-400 font-semibold">
+    Proyectos
+  </router-link>
+
+  <router-link
+  to="/contact"
+  class="text-gray-300 hover:text-green-400 font-semibold"
+>
+  Contáctame
+</router-link>
+
+
+
+  <router-link to="/login" class="text-blue-400 hover:text-blue-300 font-semibold">
+    Iniciar Sesión
+  </router-link>
+</div>
+
       </nav>
     </header>
 

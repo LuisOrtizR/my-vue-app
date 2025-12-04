@@ -7,12 +7,12 @@ export const api = axios.create({
   timeout: 10000,
 })
 
-export async function getAbout() {
-  const res = await api.get('/about-me')
+export async function getProjects() {
+  const res = await api.get('/projects')
   return res.data
 }
 
 export function fileUrl(filename?: string | null): string | undefined {
   if (!filename) return undefined
-  return `${BASE}/uploads/aboutme/${filename}`
+  return `${BASE}/uploads/projects/${filename}`
 }
