@@ -45,27 +45,27 @@ const submit = async () => {
 
 <template>
   <section class="py-24 px-5 max-w-3xl mx-auto">
-    <h1 class="text-4xl md:text-6xl font-extrabold text-green-500 text-center mb-10">
+    <h1 class="text-4xl md:text-6xl font-extrabold text-green-500 text-center mb-12 tracking-tight">
       Contáctame
     </h1>
 
     <div
       v-if="success"
-      class="mb-6 p-4 text-green-700 bg-green-200 border border-green-400 rounded-lg text-center animate-fade"
+      class="mb-6 p-4 bg-green-900/20 border border-green-500 text-green-400 rounded-xl text-center animate-fade shadow-lg"
     >
       {{ success }}
     </div>
 
     <div
       v-if="error"
-      class="mb-6 p-4 text-red-700 bg-red-200 border border-red-400 rounded-lg text-center animate-fade"
+      class="mb-6 p-4 bg-red-900/20 border border-red-500 text-red-400 rounded-xl text-center animate-fade shadow-lg"
     >
       {{ error }}
     </div>
 
     <form
       @submit.prevent="submit"
-      class="bg-gray-800 p-10 rounded-xl shadow-lg space-y-6"
+      class="bg-gray-900 p-10 rounded-2xl shadow-xl border border-gray-800 space-y-7"
     >
       <div>
         <label class="text-gray-300 font-semibold">Nombre</label>
@@ -73,7 +73,7 @@ const submit = async () => {
           v-model="form.name"
           type="text"
           placeholder="Tu nombre"
-          class="w-full mt-2 px-4 py-3 rounded-lg bg-gray-900 text-gray-100 border border-gray-700 focus:border-green-500 focus:ring-2 focus:ring-green-500 transition"
+          class="input-field"
         />
       </div>
 
@@ -83,7 +83,7 @@ const submit = async () => {
           v-model="form.email"
           type="email"
           placeholder="tucorreo@example.com"
-          class="w-full mt-2 px-4 py-3 rounded-lg bg-gray-900 text-gray-100 border border-gray-700 focus:border-green-500 focus:ring-2 focus:ring-green-500 transition"
+          class="input-field"
         />
       </div>
 
@@ -93,13 +93,13 @@ const submit = async () => {
           v-model="form.message"
           rows="6"
           placeholder="Escribe tu mensaje..."
-          class="w-full mt-2 px-4 py-3 rounded-lg bg-gray-900 text-gray-100 border border-gray-700 focus:border-green-500 focus:ring-2 focus:ring-green-500 transition resize-none"
+          class="input-field resize-none"
         ></textarea>
       </div>
 
       <button
         :disabled="loading"
-        class="w-full py-3 rounded-lg bg-green-600 hover:bg-green-500 text-black font-bold text-lg shadow-lg transition transform hover:scale-105 disabled:opacity-50 disabled:scale-100"
+        class="submit-btn"
       >
         {{ loading ? "Enviando..." : "Enviar mensaje" }}
       </button>
@@ -108,6 +108,17 @@ const submit = async () => {
 </template>
 
 <style scoped>
+.input-field {
+  @apply w-full mt-2 px-4 py-3 rounded-xl bg-gray-800 text-gray-100 border border-gray-700
+         focus:border-green-500 focus:ring-2 focus:ring-green-600/40 outline-none transition
+         shadow-inner;
+}
+
+.submit-btn {
+  @apply w-full py-3 rounded-xl bg-green-600 hover:bg-green-500 text-black font-bold text-lg
+         shadow-lg transition transform hover:scale-105 disabled:opacity-50 disabled:scale-100;
+}
+
 @keyframes fade {
   from { opacity: 0 }
   to { opacity: 1 }

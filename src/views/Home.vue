@@ -2,14 +2,11 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { Icon } from '@iconify/vue'
 
-const iconSize = ref(48)
+const iconSize = ref(56)
 
-function updateIconSize() {
-  const width = window.innerWidth
-  if (width >= 1280) iconSize.value = 96
-  else if (width >= 1024) iconSize.value = 80
-  else if (width >= 768) iconSize.value = 64
-  else iconSize.value = 48
+const updateIconSize = () => {
+  const w = window.innerWidth
+  iconSize.value = w >= 1280 ? 110 : w >= 1024 ? 90 : w >= 768 ? 70 : 56
 }
 
 onMounted(() => {
@@ -24,13 +21,17 @@ onUnmounted(() => {
 
 <template>
   <section class="hero">
-    <h1 class="hero-title">Codenest Solutions ✔</h1>
+    <h1 class="hero-title">
+      <span class="gradient-title">Codenest Solutions</span> ✔
+    </h1>
+
     <p class="hero-subtitle">
-      Full-Stack Developer | Node.js + Vue.js + MySQL + Prisma + NestJS
+      Full-Stack Developer — Node.js · Vue.js · NestJS · Prisma · MySQL
     </p>
+
     <p class="hero-text">
-      Construyendo aplicaciones web modernas, rápidas y seguras.
-      Transformo ideas en experiencias digitales reales y escalables.
+      Desarrollo aplicaciones web modernas, rápidas y seguras.
+      Transformo ideas en experiencias digitales escalables con enfoque profesional.
     </p>
 
     <div class="tech-icons">
@@ -44,46 +45,52 @@ onUnmounted(() => {
     </div>
 
     <div class="btn-group">
-      <a href="#projects" class="btn-main">🚀 Ver Proyectos</a>
-      <a href="#contact" class="btn-outline">📩 Contáctame</a>
+      <router-link to="/projects" class="btn-main">Ver proyectos</router-link>
+      <router-link to="/contact" class="btn-outline">Contáctame</router-link>
     </div>
   </section>
 </template>
 
 <style scoped>
 .hero {
-  @apply text-center py-24 px-5 max-w-7xl mx-auto;
+  @apply text-center py-28 px-6 max-w-6xl mx-auto;
 }
 
 .hero-title {
-  @apply text-4xl md:text-6xl font-extrabold text-green-500 leading-tight;
+  @apply text-5xl md:text-7xl font-extrabold leading-tight tracking-tight;
+}
+
+.gradient-title {
+  @apply bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent;
 }
 
 .hero-subtitle {
-  @apply text-lg md:text-2xl text-gray-300 mt-6 font-semibold;
+  @apply text-xl md:text-2xl text-gray-300 mt-6 font-semibold;
 }
 
 .hero-text {
-  @apply text-sm md:text-lg text-gray-400 mt-4 max-w-2xl mx-auto;
+  @apply text-base md:text-lg text-gray-400 mt-4 max-w-2xl mx-auto leading-relaxed;
 }
 
 .tech-icons {
-  @apply flex flex-wrap justify-center gap-6 mt-10 text-gray-300;
+  @apply flex flex-wrap justify-center gap-8 mt-12;
 }
 
 .tech-icon {
-  @apply transition-transform duration-300 hover:scale-110;
+  @apply opacity-80 hover:opacity-100 transition duration-300 hover:scale-110;
 }
 
 .btn-group {
-  @apply mt-10 flex flex-col sm:flex-row justify-center gap-5;
+  @apply mt-12 flex flex-col sm:flex-row justify-center gap-6;
 }
 
 .btn-main {
-  @apply px-6 py-3 text-lg bg-green-500 hover:bg-green-600 rounded-lg font-bold transition-all hover:scale-105;
+  @apply px-8 py-3 text-lg bg-green-500 hover:bg-green-600 rounded-xl font-bold text-black
+         shadow-lg transition-all hover:scale-105;
 }
 
 .btn-outline {
-  @apply px-6 py-3 text-lg border border-green-500 rounded-lg hover:bg-green-500/20 transition-all hover:scale-105;
+  @apply px-8 py-3 text-lg border border-green-500 rounded-xl text-gray-200
+         hover:bg-green-500/20 transition-all hover:scale-105;
 }
 </style>
