@@ -18,7 +18,7 @@ const submit = async () => {
 
   try {
     const res = await loginApi(email.value, password.value);
-    auth.login(res.data.access_token, res.data.expiresIn);
+    auth.login(res.data.access_token, res.data.expiresIn, email.value);
     router.push("/admin");
   } catch (e: any) {
     error.value = e.response?.data?.message || "Error al iniciar sesión";

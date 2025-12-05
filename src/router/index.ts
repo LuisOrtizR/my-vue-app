@@ -5,9 +5,9 @@ import Projects from '@/views/Projects.vue'
 import Contact from '@/views/Contact.vue'
 import ForgotPassword from '@/views/ForgotPassword.vue'
 import ResetPassword from '@/views/ResetPassword.vue'
-import Dashboard from '@/views/Dashboard.vue'
 import About from '@/views/About.vue'
 import { useAuthStore } from '@/stores/auth'
+import AdminLayout from "@/layouts/AdminLayout.vue";
 
 const routes = [
   { path: '/', component: Home },
@@ -18,10 +18,17 @@ const routes = [
   { path: '/forgot-password', component: ForgotPassword },
   { path: '/reset-password', component: ResetPassword },
   {
-    path: '/admin',
-    component: Dashboard,
-    meta: { requiresAuth: true }
-  }
+  path: "/admin",
+  component: AdminLayout,
+  meta: { requiresAuth: true },
+  children: [
+    { path: "", redirect: "/admin/about" },
+
+    { path: "about", component: () => import("@/views/admin/AboutAdmin.vue") },
+    { path: "contacts", component: () => import("@/views/admin/ContactsAdmin.vue") },
+    { path: "projects", component: () => import("@/views/admin/ProjectsAdmin.vue") },
+  ]
+}
 ]
 
 const router = createRouter({
@@ -29,12 +36,15 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to) => {
-  const auth = useAuthStore()
+router.beforeEach((to, from, next) => {
+  const auth = useAuthStore();
 
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    return { path: '/login' }
+    return next("/login");
   }
-})
+
+  next();
+});
+
 
 export default router
