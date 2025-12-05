@@ -1,15 +1,19 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
+import { Icon } from "@iconify/vue";
 
 const route = useRoute();
 const auth = useAuthStore();
 
-const isAdmin = computed(() => route.path.startsWith("/admin"));
+// 🔥 ESTO ES LO QUE FALTABA
+const mobileMenu = ref(false);
 
+const isAdmin = computed(() => route.path.startsWith("/admin"));
 const isLogged = computed(() => auth.isAuthenticated);
 </script>
+
 
 <template>
   <router-view v-if="isAdmin" />
@@ -18,39 +22,78 @@ const isLogged = computed(() => auth.isAuthenticated);
     class="min-h-screen bg-gray-900 text-white flex flex-col"
   >
     <header class="bg-gray-900 p-4 border-b border-gray-700">
-      <nav class="max-w-6xl mx-auto flex justify-between items-center">
-        <router-link to="/" class="text-xl font-bold text-green-400">
-          CodeNest Solutions ✔
-        </router-link>
+  <nav class="max-w-6xl mx-auto flex justify-between items-center">
 
-        <div class="flex items-center gap-6">
-          <router-link to="/about" class="text-gray-300 hover:text-green-400 font-semibold">
-            Sobre mí
-          </router-link>
-          <router-link to="/projects" class="text-gray-300 hover:text-green-400 font-semibold">
-            Proyectos
-          </router-link>
-          <router-link to="/contact" class="text-gray-300 hover:text-green-400 font-semibold">
-            Contáctame
-          </router-link>
+    <!-- LOGO -->
+    <router-link
+      to="/"
+      class="text-xl font-bold text-green-400"
+    >
+      CodeNest Solutions ✔
+    </router-link>
 
-          <router-link
-            v-if="!isLogged"
-            to="/login"
-            class="text-gray-300 hover:text-green-400 font-semibold"
-          >
-            Iniciar sesión
-          </router-link>
-          <router-link
-            v-else
-            to="/admin"
-            class="text-green-400 font-semibold"
-          >
-            Panel
-          </router-link>
-        </div>
-      </nav>
-    </header>
+    <!-- BOTÓN MENÚ MÓVIL -->
+    <button
+      class="text-gray-300 hover:text-green-400 lg:hidden"
+      @click="mobileMenu = !mobileMenu"
+    >
+      <Icon icon="mdi:menu" width="28" />
+    </button>
+
+    <!-- NAV DESKTOP -->
+    <div class="hidden lg:flex items-center gap-6">
+      <router-link to="/about" class="nav-item">Sobre mí</router-link>
+      <router-link to="/projects" class="nav-item">Proyectos</router-link>
+      <router-link to="/contact" class="nav-item">Contáctame</router-link>
+
+      <router-link
+        v-if="!isLogged"
+        to="/login"
+        class="nav-item"
+      >
+        Iniciar sesión
+      </router-link>
+      <router-link
+        v-else
+        to="/admin"
+        class="text-green-400 font-semibold"
+      >
+        Panel
+      </router-link>
+    </div>
+
+  </nav>
+
+  <!-- NAV MÓVIL -->
+  <transition name="fade">
+    <div
+      v-if="mobileMenu"
+      class="lg:hidden mt-3 flex flex-col gap-4 text-center bg-gray-800 p-4 rounded-lg border border-gray-700"
+    >
+      <router-link @click="mobileMenu = false" to="/about" class="nav-item-mobile">Sobre mí</router-link>
+      <router-link @click="mobileMenu = false" to="/projects" class="nav-item-mobile">Proyectos</router-link>
+      <router-link @click="mobileMenu = false" to="/contact" class="nav-item-mobile">Contáctame</router-link>
+
+      <router-link
+        v-if="!isLogged"
+        @click="mobileMenu = false"
+        to="/login"
+        class="nav-item-mobile"
+      >
+        Iniciar sesión
+      </router-link>
+      <router-link
+        v-else
+        @click="mobileMenu = false"
+        to="/admin"
+        class="text-green-400 font-semibold"
+      >
+        Panel
+      </router-link>
+    </div>
+  </transition>
+</header>
+
 
     <main class="flex-1 px-4 py-10 max-w-5xl mx-auto">
       <router-view />
@@ -61,3 +104,24 @@ const isLogged = computed(() => auth.isAuthenticated);
     </footer>
   </div>
 </template>
+
+<style scoped>
+.nav-item {
+  @apply text-gray-300 hover:text-green-400 font-semibold;
+}
+
+.nav-item-mobile {
+  @apply text-gray-300 hover:text-green-400 font-semibold text-lg py-2;
+}
+
+/* Animación fade */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
