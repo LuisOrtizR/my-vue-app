@@ -64,7 +64,7 @@ const isActive = (path: string) => route.path === path;
             to="/login"
             :class="['nav-item', isActive('/login') && 'active-item']"
           >
-            Iniciar sesión
+            Sesión Admin
           </router-link>
 
           <router-link

@@ -12,7 +12,8 @@ export async function getAbout() {
   return res.data
 }
 
-export function fileUrl(filename?: string | null): string | undefined {
-  if (!filename) return undefined
-  return `${BASE}/uploads/aboutme/${filename}`
+export async function saveAbout(formData: FormData) {
+  return await api.post('/about-me', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })
 }

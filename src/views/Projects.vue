@@ -31,7 +31,7 @@ let intervalId: any;
 const zoomImage = ref<string | undefined>(undefined);
 
 const safeFileUrl = (path?: string | null): string | undefined =>
-  path ? fileUrl(path) : undefined;
+  path ? fileUrl(path) ?? undefined : undefined;
 
 const getIndex = (p: Project): number => galleryIndex.value[p.id] ?? 0;
 
@@ -77,44 +77,44 @@ onUnmounted(stopCarousel);
       <div class="bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-xl hover:scale-105 transition-all">
         <GlobeAltIcon class="w-12 h-12 text-green-400 mx-auto mb-4" />
         <h3 class="text-xl font-bold text-green-400 mb-2">Sitios Web Responsivos</h3>
-        <p class="text-gray-300">Páginas modernas, rápidas y optimizadas para móviles con excelente UX.</p>
+        <p class="text-gray-300">Páginas modernas, rápidas y optimizadas.</p>
       </div>
 
       <div class="bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-xl hover:scale-105 transition-all">
         <UserGroupIcon class="w-12 h-12 text-green-400 mx-auto mb-4" />
         <h3 class="text-xl font-bold text-green-400 mb-2">Roles y Permisos</h3>
-        <p class="text-gray-300">Sistemas con gestión avanzada de usuarios, autenticación segura y administración interna.</p>
+        <p class="text-gray-300">Gestión avanzada de usuarios y seguridad.</p>
       </div>
 
       <div class="bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-xl hover:scale-105 transition-all">
         <CreditCardIcon class="w-12 h-12 text-green-400 mx-auto mb-4" />
         <h3 class="text-xl font-bold text-green-400 mb-2">Pasarelas de Pago</h3>
-        <p class="text-gray-300">Plataformas de pedidos, inventarios y pagos con Stripe, PayPal o Wompi.</p>
+        <p class="text-gray-300">Integraciones con Stripe, PayPal y Wompi.</p>
       </div>
 
       <div class="bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-xl hover:scale-105 transition-all">
         <ShieldCheckIcon class="w-12 h-12 text-green-400 mx-auto mb-4" />
         <h3 class="text-xl font-bold text-green-400 mb-2">Seguridad Avanzada</h3>
-        <p class="text-gray-300">Hashing, encriptación, reglas de seguridad en BD y protección de datos.</p>
+        <p class="text-gray-300">Protección de datos y buenas prácticas.</p>
       </div>
 
       <div class="bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-xl hover:scale-105 transition-all">
         <CpuChipIcon class="w-12 h-12 text-green-400 mx-auto mb-4" />
-        <h3 class="text-xl font-bold text-green-400 mb-2">Lógica y Backend</h3>
-        <p class="text-gray-300">APIs, procesamiento de datos, automatización y lógica avanzada.</p>
+        <h3 class="text-xl font-bold text-green-400 mb-2">Backend y APIs</h3>
+        <p class="text-gray-300">Automatización y lógica avanzada.</p>
       </div>
 
       <div class="bg-gray-900 p-8 rounded-2xl border border-gray-700 shadow-xl hover:scale-105 transition-all">
         <BoltIcon class="w-12 h-12 text-green-400 mx-auto mb-4" />
-        <h3 class="text-xl font-bold text-green-400 mb-2">Infraestructura Optimizada</h3>
-        <p class="text-gray-300">Despliegues económicos, escalables y con bajo costo de mantenimiento.</p>
+        <h3 class="text-xl font-bold text-green-400 mb-2">Infraestructura</h3>
+        <p class="text-gray-300">Despliegues escalables y optimizados.</p>
       </div>
     </div>
 
     <h2 class="text-4xl md:text-5xl font-bold text-green-500 mb-10">Proyectos Realizados</h2>
 
     <p class="text-gray-300 max-w-3xl mx-auto mb-16 text-lg">
-      Aquí encontrarás proyectos reales desarrollados con tecnologías modernas, optimización avanzada y enfoque en seguridad, rendimiento y escalabilidad.
+      Proyectos reales con tecnologías modernas, optimización y enfoque en seguridad.
     </p>
 
     <p v-if="loading" class="text-gray-400 text-lg py-20">Cargando proyectos...</p>
@@ -147,7 +147,7 @@ onUnmounted(stopCarousel);
             <div v-if="project.gallery.length <= 2" class="grid grid-cols-2 gap-2">
               <img
                 v-for="img in project.gallery"
-                :key="img ?? undefined"
+                :key="img ?? 'gallery'"
                 :src="safeFileUrl(img)"
                 class="w-full h-24 object-cover rounded-md cursor-pointer hover:opacity-80 transition"
                 @click="zoomImage = safeFileUrl(img)"
